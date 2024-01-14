@@ -18,25 +18,21 @@
         }
 
         public static function getCampeon($rol): array {
-            // Establecer conexion con la BBDD
+            // Establecer conexión con la BBDD
             include_once '../Conexion/obtenerConexion.php';
             $conexion = ObtenerConexion::obtenerConexion();
-
-            // Preparar la consulta sql
-            $sql = "SELECT * FROM campeon WHERE rol = :rol"; 
+        
+            // Preparar la consulta SQL
+            $sql = "SELECT * FROM campeon WHERE rol = :rol";
             $sentencia = $conexion->prepare($sql);
-
+        
+            $sentencia->setFetchMode(PDO::FETCH_CLASS, "Campeon");
             $sentencia->bindParam(":rol", $rol);
             $sentencia->execute();
-
-            $campeones = array();
-
-            while ($fila = $sentencia->fetch()) { 
-                $campeones[] = $fila; 
-            }
-
-            return $campeones;
+        
+            return $sentencia->fetchAll();
         }
+        
 
         public static function addCampeon(Campeon $campeon): bool {
             $result = false;
@@ -60,25 +56,28 @@
             return $result;
         }
 
-        public static function getCampeonNombre($nombre): Campeon {
-            // Establecer conexión con la BBDD
-            include_once '../Conexion/obtenerConexion.php';
+        public static function getCampeonNombre(string $nombre) : Campeon {
+            $campeon = new Campeon();
+
+            // Establecer conexión con la base de datos
+            include_once('../Conexion/obtenerConexion.php');
             $conexion = ObtenerConexion::obtenerConexion();
-        
-            // Preparar la consulta SQL
-            $sql = "SELECT * FROM campeon WHERE nombre = :nombre"; 
+
+            // Preparar la consulta
+            $sql = "SELECT * FROM campeon WHERE nombre = :nombre";
             $sentencia = $conexion->prepare($sql);
-        
-            $sentencia->bindParam(":nombre", $nombre);
+
+            // Ejecutar la consulta
+            $sentencia->setFetchMode(PDO::FETCH_CLASS, "Campeon");
+            $sentencia->bindParam(':nombre', $nombre);
             $sentencia->execute();
-        
-            // Obtener el resultado como un objeto Campeon
-            $campeon = $sentencia->fetchObject('Campeon');
-        
+
+            $campeon = $sentencia->fetch();
+
             return $campeon;
         }
         
-        public static function updateCampeon(Campeon $campeon): bool {
+        public static function updateCampeon(Campeon $campeon) : bool {
             $result = false;
 
             // Establecer conexión con la BBDD
@@ -86,10 +85,10 @@
             $conexion = ObtenerConexion::obtenerConexion();
     
             // Preparar la consulta SQL
-            $sql = "UPDATE campeon SET nombre = :nombre, rol = :rol, dificultad = :dificultad, descripcion = :descripcion WHERE idCampeon = :id";
+            $sql = "UPDATE campeon SET nombre = :nombre, rol = :rol, dificultad = :dificultad, descripcion = :descripcion WHERE nombre = :nombre";
     
             $sentencia = $conexion->prepare($sql);
-    
+
             $sentencia->bindValue(":nombre", $campeon->getNombre());
             $sentencia->bindValue(":rol", $campeon->getRol());
             $sentencia->bindValue(":dificultad", $campeon->getDificultad());
@@ -97,7 +96,6 @@
 
             $result = $sentencia->execute();
 
-    
             return $result;
         }
     
@@ -109,13 +107,15 @@
             $conexion = ObtenerConexion::obtenerConexion();
     
             // Preparar la consulta SQL
-            $sql = "DELETE FROM campeon WHERE idCampeon = :id";
+            $sql = "DELETE FROM campeon WHERE nombre = :nombre";
+
+            $nombre = $campeon->getNombre();
     
             $sentencia = $conexion->prepare($sql);
-            $sentencia->bindValue(":id", $campeon->getId()); 
+            $sentencia->bindValue(":nombre", $nombre); 
 
             $result = $sentencia->execute();
-    
+
             return $result;
         }
     }

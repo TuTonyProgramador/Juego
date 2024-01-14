@@ -4,13 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Insertar Campeon</title>
+    <link rel="stylesheet" href="../CSS/style.css">
 </head>
 <body>
     <nav>
         <a href="formMostrarTodos.php">Mostrar Todos</a>
         <a href="formInserta.php">Insertar</a>
         <a href="formModificar.php">Modificar</a>
-        <a href="formBorrar.php">Borrar</a>
+        <a href="formEliminar.php">Borrar</a>
         <a href="formMostrarRol.php">Mostrar por Rol</a>
     </nav>
 
@@ -33,7 +34,7 @@
         <input type="text" name="descripcion" id="descripcion" required>
         <br>
         <br>
-        <input type="submit" id="bInsertar" name="insertar" value="Insertar">
+        <input type="submit" class="button" id="bInsertar" name="insertar" value="Insertar">
     </form>
     
 </body>
