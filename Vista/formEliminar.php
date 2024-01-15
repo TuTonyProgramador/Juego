@@ -38,6 +38,7 @@
         <h2>Confirmar borrado de campeón</h2>
         <p>¿Estás seguro de que deseas borrar al campeon con Nombre <?php echo $nombreCampeon; ?>?</p>
         <input type="submit" class="button" name="confirmarBorrado" id="confirmarBorrado" value="Confirmar Borrado">
+        <input type="submit" class="button" name="cancelar" id="cancelar" value="Cancelar">
     </form>
 
     <?php 
@@ -52,6 +53,8 @@
         } else {
             echo "<br> No se ha podido eliminar";
         }
+     } elseif(isset($_POST['cancelar'])) {
+        echo "<br> Proceso cancelado, no se ha eliminado";
      } 
     ?>
 </body>

@@ -3,6 +3,11 @@
 
         private static $conexion;
 
+        /*
+        Funcion para conectarse con la base de datos
+        Recibe: nada
+        Devuelve: la conexion 
+        */
         public static function obtenerConexion() {
             include_once "datosConexion.php";
 

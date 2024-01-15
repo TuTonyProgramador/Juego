@@ -53,13 +53,12 @@
             }
         
             echo "</table>";
+        } else {
+            if (isset($_POST['bMostrar'])) {
+                echo '<p>No hay campeones disponibles para el rol especificado.</p>';
+            }
         }
         
     ?>
-
-
-
-
-
 </body>
 </html>

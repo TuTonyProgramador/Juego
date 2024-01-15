@@ -14,17 +14,14 @@
         <a href="formEliminar.php">Borrar</a>
         <a href="formMostrarRol.php">Mostrar por Rol</a>
     </nav>
-
     <br>
     <br>
-
     <?php
         $campeones = array();
 
         include_once '../Modelo/campeon.php';
         include_once '../Controlador/controladorMostrarTodos.php';
 
-        // Mover la lógica para mostrar campeones fuera del condicional
         $campeones = mostrarTodos();
 
         if (!empty($campeones)) { 
@@ -40,11 +37,9 @@
                 echo "<td>".$campeon->getDescripcion()."</td>";
                 echo "</tr>";
             }
-        
             echo "</table>";
         }
     ?>
-
     <br>
     <br>
     
