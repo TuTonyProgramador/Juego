@@ -14,9 +14,7 @@
         <a href="formEliminar.php">Borrar</a>
         <a href="formMostrarRol.php">Mostrar por Rol</a>
     </nav>
-
     <br>
-
     <form action="../Controlador/controlaInserta.php" method="post">
         <label for="nombre">Inserte un nombre: </label>
         <input type="text" name="nombre" id="nombre" required>
